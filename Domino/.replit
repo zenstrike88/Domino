@@ -1,0 +1,42 @@
+entrypoint = "main.py"
+modules = ["python-3.11"]
+
+[nix]
+channel = "stable-24_05"
+packages = ["libsodium"]
+
+[unitTest]
+language = "python3"
+
+[gitHubImport]
+requiredFiles = [".replit", "replit.nix"]
+
+[deployment]
+run = ["python", "Domino_bot.py"]
+deploymentTarget = "vm"
+
+[agent]
+expertMode = true
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Domino bot"
+
+[[workflows.workflow]]
+name = "Domino bot"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python Domino_bot.py"
+
+[workflows.workflow.metadata]
+outputType = "console"
